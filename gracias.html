@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>¡Gracias! - Estudia tu FP en Japón</title>
+    <meta name="description" content="Gracias por tu interés en estudiar Formación Profesional en Japón. Te contactaremos pronto.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+        
+        // Evento de conversión
+        gtag('event', 'conversion', {
+            'send_to': 'GA_MEASUREMENT_ID/form_submit',
+            'event_category': 'Lead Generation',
+            'event_label': 'FP Japón Form'
+        });
+    </script>
+    
+    <!-- Auto-redirect después de 10 segundos -->
+    <script>
+        setTimeout(function() {
+            window.location.href = 'index.html';
+        }, 10000);
+    </script>
+</head>
+
+<body>
+    <!-- Header simplificado -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">🌸 Estudia tu FP en Japón</div>
+            <a href="index.html" class="btn btn-secondary">🏠 Volver al inicio</a>
+        </nav>
+    </header>
+
+    <!-- Página de agradecimiento -->
+    <section class="gracias-hero">
+        <div class="container">
+            <div class="gracias-content">
+                <!-- Icono de éxito -->
+                <div class="success-icon">✅</div>
+                
+                <h1>¡Gracias por tu solicitud!</h1>
+                <p class="gracias-subtitle">Tu interés en estudiar en Japón ha sido enviado correctamente</p>
+                
+                <!-- Información de seguimiento -->
+                <div class="next-steps">
+                    <h2>📋 ¿Qué pasa ahora?</h2>
+                    <div class="steps-grid">
+                        <div class="step-item">
+                            <div class="step-icon">📧</div>
+                            <h3>Email de confirmación</h3>
+                            <p>Recibirás un email en los próximos minutos confirmando que hemos recibido tu solicitud</p>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-icon">📞</div>
+                            <h3>Contacto personalizado</h3>
+                            <p>Nuestro equipo te contactará en menos de 24 horas para resolver tus dudas</p>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-icon">📋</div>
+                            <h3>Información detallada</h3>
+                            <p>Te enviaremos documentación específica sobre el programa que seleccionaste</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Información adicional mientras espera -->
+                <div class="while-waiting">
+                    <h2>🌸 Mientras tanto...</h2>
+                    <div class="waiting-cards">
+                        <div class="waiting-card">
+                            <h3>📚 Prepárate</h3>
+                            <p>Empieza a familiarizarte con la cultura japonesa y aprende algunas palabras básicas</p>
+                            <a href="https://www.studyinjapan.go.jp/es/" target="_blank" class="btn btn-secondary">Info oficial Japón</a>
+                        </div>
+                        
+                        <div class="waiting-card">
+                            <h3>💬 Únete a la comunidad</h3>
+                            <p>Conéctate con otros estudiantes interesados en estudiar en Japón</p>
+                            <a href="https://wa.me/+34XXXXXXXXX?text=Hola!%20Acabo%20de%20enviar%20mi%20solicitud%20para%20FP%20en%20Japón" class="btn btn-primary">💬 WhatsApp</a>
+                        </div>
+                        
+                        <div class="waiting-card">
+                            <h3>🏢 Conoce el centro</h3>
+                            <p>Descubre más sobre el Instituto Técnico de Madrid y su metodología</p>
+                            <a href="https://institutotecnicodemadrid.es/" target="_blank" class="btn btn-secondary">Instituto Técnico Madrid</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contacto urgente -->
+                <div class="urgent-contact">
+                    <h3>🚨 ¿Tienes una consulta urgente?</h3>
+                    <p>No dudes en contactarnos directamente</p>
+                    <div class="contact-options">
+                        <a href="mailto:estudiatufpenjapon@gmail.com" class="btn btn-primary">📧 Email directo</a>
+                        <a href="https://wa.me/+34XXXXXXXXX?text=Urgente:%20Consulta%20sobre%20FP%20en%20Japón" class="btn btn-primary">💬 WhatsApp urgente</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer simplificado -->
+    <footer class="footer-simple">
+        <div class="container">
+            <p>&copy; 2025 Estudia tu FP en Japón • <a href="index.html">Volver al inicio</a></p>
+            <p><small>Serás redirigido automáticamente en <span id="countdown">10</span> segundos</small></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript para countdown -->
+    <script>
+        let countdown = 10;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+    </script>
+    
+    <!-- JavaScript principal -->
+    <script src="js/main.js"></script>
+</body>
+</html>
