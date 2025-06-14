@@ -1498,8 +1498,28 @@ body {
 
 .waiting-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--espaciado-lg);
+}
+
+/* Responsive para waiting-cards */
+@media (max-width: 768px) {
+  .waiting-cards {
+    grid-template-columns: 1fr;
+    gap: var(--espaciado-md);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .waiting-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1201px) {
+  .waiting-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .waiting-card {
@@ -1579,9 +1599,7 @@ body {
     grid-template-columns: 1fr;
   }
   
-  .waiting-cards {
-    grid-template-columns: 1fr;
-  }
+
   
   .contact-options {
     flex-direction: column;

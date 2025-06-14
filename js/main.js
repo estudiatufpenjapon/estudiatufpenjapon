@@ -829,9 +829,8 @@ function handleGoogleSheetsSubmission(form) {
         });
     }
     
-    // URL de tu Google Apps Script
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzbWiXqYcos0RCb0Jt4HgnJd87c6dadGTnyKNAceagUCu-6PBZLBbAMB_KcFGm_7iFb/exec';
-    
+    // URL del Google Apps Script
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxpGuff9dPFVyyed5G_nsjAAAkDxQiMOgNLQdx_2NlvmlH8460QWYW__0922k8UMGvZ/exec';    
     // Enviar a Google Sheets
     fetch(SCRIPT_URL, {
         method: 'POST',
