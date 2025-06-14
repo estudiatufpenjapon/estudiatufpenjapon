@@ -245,28 +245,44 @@ function handleFormSubmission(form) {
         return;
     }
     
+    // Rellenar campos ocultos automáticamente
+    const fechaInput = document.getElementById('fecha_envio');
+    const userAgentInput = document.getElementById('user_agent');
+    
+    if (fechaInput) fechaInput.value = new Date().toISOString();
+    if (userAgentInput) userAgentInput.value = navigator.userAgent;
+    
+    // Tracking Analytics - Lead generado
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+            'event_category': 'Lead Generation',
+            'event_label': data.programa || 'Sin programa',
+            'value': 1
+        });
+        
+        gtag('event', 'form_submit', {
+            'event_category': 'Form',
+            'event_label': 'Contact Form',
+            'programa_interes': data.programa,
+            'nivel_japones': data.nivel_japones,
+            'cuando_empezar': data.cuando_empezar
+        });
+    }
+    
     // Mostrar loading
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     submitBtn.textContent = '📤 Enviando...';
     submitBtn.disabled = true;
     
-    // Simular envío (reemplazar con endpoint real)
+    // El formulario se envía automáticamente porque tiene action y method
+    showNotification('¡Solicitud enviada! Redirigiendo...', 'success');
+    
+    // Reset después de envío
     setTimeout(() => {
-        // Crear mensaje para WhatsApp
-        const whatsappMessage = createWhatsAppMessage(data);
-        
-        // Abrir WhatsApp
-        const whatsappUrl = `https://wa.me/+34XXXXXXXXX?text=${encodeURIComponent(whatsappMessage)}`;
-        window.open(whatsappUrl, '_blank');
-        
-        // Reset form
-        form.reset();
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        
-        showNotification('¡Solicitud enviada! Te contactaremos pronto 🌸', 'success');
-    }, 1500);
+    }, 3000);
 }
 
 function createWhatsAppMessage(data) {
@@ -520,19 +536,79 @@ function trackEvent(action, category = 'User Interaction', label = '') {
 // Track clicks importantes
 document.addEventListener('click', (e) => {
     // WhatsApp clicks
-    if (e.target.closest('.whatsapp-btn')) {
-        trackEvent('whatsapp_click', 'Contact', 'floating_button');
+    if (e.target.closest('.whatsapp-btn') || e.target.closest('a[href*="wa.me"]')) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                'event_category': 'WhatsApp',
+                'event_label': 'floating_button',
+                'event_action': 'contact_intent'
+            });
+        }
+        console.log('WhatsApp click tracked');
     }
     
     // CTA clicks
     if (e.target.closest('.btn-primary')) {
-        trackEvent('cta_click', 'Conversion', e.target.textContent);
+        const buttonText = e.target.textContent || e.target.closest('.btn-primary').textContent;
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                'event_category': 'CTA',
+                'event_label': buttonText.trim(),
+                'event_action': 'engagement'
+            });
+        }
+        console.log('CTA click tracked:', buttonText);
     }
     
     // Family accordion clicks
     if (e.target.closest('.family-header')) {
         const familyName = e.target.closest('.family-card').dataset.family;
-        trackEvent('family_expand', 'Programs', familyName);
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'expand', {
+                'event_category': 'Programs',
+                'event_label': familyName,
+                'event_action': 'family_expand'
+            });
+        }
+        console.log('Family expansion tracked:', familyName);
+    }
+    
+    // FAQ clicks
+    if (e.target.closest('.faq-question')) {
+        const faqTitle = e.target.closest('.faq-question').querySelector('h3').textContent;
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'expand', {
+                'event_category': 'FAQ',
+                'event_label': faqTitle.substring(0, 50),
+                'event_action': 'faq_expand'
+            });
+        }
+        console.log('FAQ expansion tracked:', faqTitle);
+    }
+    
+    // Email clicks
+    if (e.target.closest('a[href^="mailto:"]')) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                'event_category': 'Contact',
+                'event_label': 'email',
+                'event_action': 'contact_intent'
+            });
+        }
+        console.log('Email click tracked');
+    }
+    
+    // External links
+    if (e.target.closest('a[target="_blank"]')) {
+        const url = e.target.closest('a').href;
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+                'event_category': 'External Link',
+                'event_label': url,
+                'event_action': 'outbound'
+            });
+        }
+        console.log('External link tracked:', url);
     }
 });
 

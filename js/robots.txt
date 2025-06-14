@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://estudiatufpenjapon.github.io/sitemap.xml
+
+# Disallow admin/private areas
+Disallow: /css/
+Disallow: /js/
+
+# Allow important pages
+Allow: /
+Allow: /gracias.html
