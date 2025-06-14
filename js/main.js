@@ -673,25 +673,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Configurar tracking y campos ocultos
 function initializeFormTracking() {
-    // Rellenar campos ocultos automáticamente
-    document.getElementById('user_agent').value = navigator.userAgent;
-    document.getElementById('referrer').value = document.referrer;
+    // Rellenar campos ocultos automáticamente (con verificación)
+    const userAgentField = document.getElementById('user_agent');
+    const referrerField = document.getElementById('referrer');
+    const utmSourceField = document.getElementById('utm_source');
+    const utmCampaignField = document.getElementById('utm_campaign');
+    const utmMediumField = document.getElementById('utm_medium');
+    const ipField = document.getElementById('ip');
+    
+    if (userAgentField) userAgentField.value = navigator.userAgent;
+    if (referrerField) referrerField.value = document.referrer;
     
     // UTM parameters
     const urlParams = new URLSearchParams(window.location.search);
-    document.getElementById('utm_source').value = urlParams.get('utm_source') || '';
-    document.getElementById('utm_campaign').value = urlParams.get('utm_campaign') || '';
-    document.getElementById('utm_medium').value = urlParams.get('utm_medium') || '';
+    if (utmSourceField) utmSourceField.value = urlParams.get('utm_source') || '';
+    if (utmCampaignField) utmCampaignField.value = urlParams.get('utm_campaign') || '';
+    if (utmMediumField) utmMediumField.value = urlParams.get('utm_medium') || '';
     
     // Obtener IP (opcional)
-    fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('ip').value = data.ip;
-        })
-        .catch(() => {
-            document.getElementById('ip').value = 'No disponible';
-        });
+    if (ipField) {
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                ipField.value = data.ip;
+            })
+            .catch(() => {
+                ipField.value = 'No disponible';
+            });
+    }
 }
 
 // Contador de caracteres
