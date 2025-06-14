@@ -245,27 +245,12 @@ function handleFormSubmission(form) {
         return;
     }
     
-    // Rellenar campos ocultos automáticamente
-    const fechaInput = document.getElementById('fecha_envio');
-    const userAgentInput = document.getElementById('user_agent');
-    
-    if (fechaInput) fechaInput.value = new Date().toISOString();
-    if (userAgentInput) userAgentInput.value = navigator.userAgent;
-    
     // Tracking Analytics - Lead generado
     if (typeof gtag !== 'undefined') {
         gtag('event', 'generate_lead', {
             'event_category': 'Lead Generation',
             'event_label': data.programa || 'Sin programa',
             'value': 1
-        });
-        
-        gtag('event', 'form_submit', {
-            'event_category': 'Form',
-            'event_label': 'Contact Form',
-            'programa_interes': data.programa,
-            'nivel_japones': data.nivel_japones,
-            'cuando_empezar': data.cuando_empezar
         });
     }
     
@@ -275,14 +260,32 @@ function handleFormSubmission(form) {
     submitBtn.textContent = '📤 Enviando...';
     submitBtn.disabled = true;
     
-    // El formulario se envía automáticamente porque tiene action y method
-    showNotification('¡Solicitud enviada! Redirigiendo...', 'success');
+    // URL de tu Google Apps Script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzbWiXqYcos0RCb0Jt4HgnJd87c6dadGTnyKNAceagUCu-6PBZLBbAMB_KcFGm_7iFb/exec';
     
-    // Reset después de envío
-    setTimeout(() => {
+    // Enviar a Google Apps Script
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('Respuesta:', response);
+        showNotification('¡Solicitud enviada! Te contactaremos pronto 🎉', 'success');
+        form.reset();
+        
+        // Redirigir a página de gracias
+        setTimeout(() => {
+            window.location.href = 'gracias.html';
+        }, 2000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Error al enviar. Inténtalo de nuevo o escríbenos a estudiatufpenjapon@gmail.com', 'error');
+    })
+    .finally(() => {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-    }, 3000);
+    });
 }
 
 function createWhatsAppMessage(data) {
