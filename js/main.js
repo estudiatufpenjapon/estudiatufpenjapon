@@ -660,4 +660,254 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+/* ========================================
+   FORMULARIO GOOGLE SHEETS - FUNCIONALIDAD COMPLETA
+======================================== */
+
+// Inicializar formulario al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFormTracking();
+    initializeFormSubmission();
+    initializeCharCounter();
+});
+
+// Configurar tracking y campos ocultos
+function initializeFormTracking() {
+    // Rellenar campos ocultos automáticamente
+    document.getElementById('user_agent').value = navigator.userAgent;
+    document.getElementById('referrer').value = document.referrer;
+    
+    // UTM parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('utm_source').value = urlParams.get('utm_source') || '';
+    document.getElementById('utm_campaign').value = urlParams.get('utm_campaign') || '';
+    document.getElementById('utm_medium').value = urlParams.get('utm_medium') || '';
+    
+    // Obtener IP (opcional)
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('ip').value = data.ip;
+        })
+        .catch(() => {
+            document.getElementById('ip').value = 'No disponible';
+        });
+}
+
+// Contador de caracteres
+function initializeCharCounter() {
+    const textarea = document.getElementById('mensaje');
+    const counter = document.getElementById('charCount');
+    
+    if (textarea && counter) {
+        textarea.addEventListener('input', function() {
+            const count = this.value.length;
+            counter.textContent = count;
+            
+            if (count > 500) {
+                counter.style.color = '#dc143c';
+                this.style.borderColor = '#dc143c';
+            } else {
+                counter.style.color = '#666';
+                this.style.borderColor = '#e1e5e9';
+            }
+        });
+    }
+}
+
+// Manejar envío del formulario
+function initializeFormSubmission() {
+    const form = document.getElementById('contactForm');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleGoogleSheetsSubmission(this);
+        });
+        
+        // Validación en tiempo real
+        const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+        });
+    }
+}
+
+// Validar campo individual
+function validateField(field) {
+    const value = field.value.trim();
+    let isValid = true;
+    
+    // Quitar clases de error previas
+    field.classList.remove('error');
+    
+    // Validación según el tipo
+    switch(field.type) {
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            isValid = emailRegex.test(value);
+            break;
+        case 'tel':
+            const phoneRegex = /^[+]?[0-9\s-()]{9,}$/;
+            isValid = !value || phoneRegex.test(value);
+            break;
+        default:
+            if (field.required && !value) {
+                isValid = false;
+            }
+    }
+    
+    // Validación especial para textarea
+    if (field.id === 'mensaje' && value.length > 500) {
+        isValid = false;
+    }
+    
+    // Aplicar estilo de error
+    if (!isValid) {
+        field.classList.add('error');
+        field.style.borderColor = '#dc143c';
+    } else {
+        field.style.borderColor = '#2ecc71';
+    }
+    
+    return isValid;
+}
+
+// Enviar a Google Sheets
+function handleGoogleSheetsSubmission(form) {
+    const formData = new FormData(form);
+    
+    // Validar todos los campos requeridos
+    const requiredFields = form.querySelectorAll('input[required], select[required], textarea[required]');
+    let isFormValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!validateField(field)) {
+            isFormValid = false;
+        }
+    });
+    
+    if (!isFormValid) {
+        showFormMessage('Por favor, corrige los errores del formulario', 'error');
+        // Scroll al primer campo con error
+        const firstError = form.querySelector('.error');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+    }
+    
+    // Añadir timestamp
+    formData.append('fecha', new Date().toLocaleString('es-ES', {
+        timeZone: 'Europe/Madrid',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    }));
+    
+    // Mostrar loading
+    showFormMessage('loading');
+    const submitBtn = document.getElementById('submitBtn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span class="loading-spinner"></span> Enviando...';
+    submitBtn.disabled = true;
+    
+    // Tracking Google Analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+            'event_category': 'Lead Generation',
+            'event_label': formData.get('programa') || 'Sin programa',
+            'programa': formData.get('programa'),
+            'fuente': formData.get('fuente'),
+            'nivel_japones': formData.get('nivel_japones'),
+            'cuando_empezar': formData.get('cuando_empezar'),
+            'value': 1
+        });
+    }
+    
+    // URL de tu Google Apps Script
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzbWiXqYcos0RCb0Jt4HgnJd87c6dadGTnyKNAceagUCu-6PBZLBbAMB_KcFGm_7iFb/exec';
+    
+    // Enviar a Google Sheets
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.text();
+    })
+    .then(result => {
+        console.log('Success:', result);
+        showFormMessage('success');
+        form.reset();
+        
+        // Tracking de conversión exitosa
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'conversion', {
+                'send_to': 'YOUR_CONVERSION_ID',
+                'event_category': 'Form',
+                'event_label': 'Lead Generated'
+            });
+        }
+        
+        // Opcional: redirigir a página de gracias después de 3 segundos
+        setTimeout(() => {
+            window.location.href = 'gracias.html';
+        }, 3000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showFormMessage('error');
+        
+        // Tracking de error
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'exception', {
+                'description': 'Form submission failed',
+                'fatal': false
+            });
+        }
+    })
+    .finally(() => {
+        // Restaurar botón
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
+}
+
+// Mostrar mensajes del formulario
+function showFormMessage(type, customMessage = '') {
+    const loadingMsg = document.getElementById('loadingMessage');
+    const successMsg = document.getElementById('successMessage');
+    const errorMsg = document.getElementById('errorMessage');
+    
+    // Ocultar todos los mensajes
+    loadingMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+    errorMsg.style.display = 'none';
+    
+    // Mostrar el mensaje apropiado
+    switch(type) {
+        case 'loading':
+            loadingMsg.style.display = 'block';
+            loadingMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            break;
+        case 'success':
+            successMsg.style.display = 'block';
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            break;
+        case 'error':
+            errorMsg.style.display = 'block';
+            if (customMessage) {
+                errorMsg.querySelector('p').textContent = customMessage;
+            }
+            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            break;
+    }
+}
+
 console.log('🌸 Estudia tu FP en Japón - JavaScript cargado correctamente! 🗾');

@@ -28,8 +28,7 @@
         
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
         
     <!-- Canonical URL -->
     <link rel="canonical" href="https://estudiatufpenjapon.github.io/">
@@ -764,35 +763,199 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contacto" class="contact">
-        <div class="container">
-            <h2>¿Listo para tu Aventura en Japón?</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Contacta con Nosotros</h3>
-                    <p>📧 estudiatufpenjapon@gmail.com</p>
-                    <p>🏢 Instituto Técnico de Madrid</p>
-                    <p>⏰ Respuesta en menos de 24h</p>
+<!-- Contact Section -->
+<section id="contacto" class="contact">
+    <div class="container">
+        <h2>🇯🇵 ¿Listo para tu Aventura en Japón? 🇯🇵</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>📞 Contacta con Nosotros</h3>
+                <p>📧 estudiatufpenjapon@gmail.com</p>
+                <p>🏢 Instituto Técnico de Madrid</p>
+                <p>⏰ Respuesta garantizada en 24h</p>
+                <p>📱 WhatsApp disponible</p>
+                
+                <div class="contact-benefits">
+                    <div class="benefit-point">✅ Asesoramiento personalizado</div>
+                    <div class="benefit-point">✅ Información detallada por email</div>
+                    <div class="benefit-point">✅ Videollamada informativa gratuita</div>
+                    <div class="benefit-point">✅ Resolución de todas las dudas</div>
                 </div>
+            </div>
+            
             <form class="contact-form" id="contactForm">
-                    <input type="email" name="email" placeholder="Tu email" required>
-                    <input type="tel" name="telefono" placeholder="Tu teléfono">
-                    <select name="programa" required>
-                        <option value="">Selecciona un programa</option>
-                        <option value="informatica">💻 Informática</option>
-                        <option value="administracion">💼 Administración</option>
-                        <option value="servicios">👥 Servicios Sociales</option>
-                        <option value="comercio">📈 Comercio</option>
-                        <option value="turismo">🏨 Turismo</option>
+                <h3>📋 Solicita tu Información Gratuita</h3>
+                <p style="margin-bottom: 25px; opacity: 0.9;">Completa el formulario y te contactaremos en menos de 24 horas</p>
+                
+                <!-- Datos Personales -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">👤 Nombre completo *</label>
+                        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre y apellidos">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">📧 Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefono">📱 Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+34 666 777 888">
+                    </div>
+                    <div class="form-group">
+                        <label for="edad">🎂 Edad</label>
+                        <input type="number" id="edad" name="edad" min="16" max="65" placeholder="25">
+                    </div>
+                </div>
+                
+                <!-- Información Académica -->
+                <div class="form-group">
+                    <label for="programa">🎓 Programa de Interés *</label>
+                    <select id="programa" name="programa" required>
+                        <option value="">Selecciona tu programa favorito...</option>
+                        <optgroup label="💻 Informática y Comunicaciones">
+                            <option value="Desarrollo de Aplicaciones Web">🌐 Desarrollo de Aplicaciones Web</option>
+                            <option value="Desarrollo de Aplicaciones Multiplataforma">📱 Desarrollo de Aplicaciones Multiplataforma</option>
+                            <option value="Administración de Sistemas Informáticos en Red">🔧 Administración de Sistemas Informáticos</option>
+                            <option value="Sistemas Microinformáticos y Redes">🖥️ Sistemas Microinformáticos y Redes</option>
+                        </optgroup>
+                        <optgroup label="💼 Administración y Gestión">
+                            <option value="Administración y Finanzas">📊 Administración y Finanzas</option>
+                            <option value="Asistencia a la Dirección">🏢 Asistencia a la Dirección</option>
+                            <option value="Gestión Administrativa">📋 Gestión Administrativa</option>
+                        </optgroup>
+                        <optgroup label="👥 Servicios Socioculturales">
+                            <option value="Educación Infantil">👶 Educación Infantil</option>
+                            <option value="Integración Social">🤝 Integración Social</option>
+                            <option value="Mediación Comunicativa">💬 Mediación Comunicativa</option>
+                            <option value="Promoción de Igualdad de Género">⚖️ Promoción de Igualdad de Género</option>
+                            <option value="Atención a Personas en Situación de Dependencia">👵 Atención a Personas Dependientes</option>
+                        </optgroup>
+                        <optgroup label="📈 Comercio y Marketing">
+                            <option value="Marketing y Publicidad">📢 Marketing y Publicidad</option>
+                            <option value="Transporte y Logística">🚚 Transporte y Logística</option>
+                            <option value="Comercio Internacional">🌐 Comercio Internacional</option>
+                            <option value="Actividades Comerciales">🛍️ Actividades Comerciales</option>
+                        </optgroup>
+                        <optgroup label="🏨 Hostelería y Turismo">
+                            <option value="Gestión de Alojamientos Turísticos">🏨 Gestión de Alojamientos Turísticos</option>
+                            <option value="Guía, Información y Asistencia Turísticas">🗾 Guía y Asistencia Turísticas</option>
+                        </optgroup>
                     </select>
-                    <textarea name="mensaje" placeholder="Cuéntanos sobre tus intereses..." rows="4"></textarea>
-                    <button type="submit" class="btn btn-primary">🚀 Enviar Solicitud</button>
-                </form>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nivel_japones">🗾 Nivel de japonés actual</label>
+                        <select id="nivel_japones" name="nivel_japones">
+                            <option value="">Tu nivel actual...</option>
+                            <option value="Ninguno">🌱 Ninguno (empezaré desde cero)</option>
+                            <option value="N5">🥉 N5 (Básico)</option>
+                            <option value="N4">🥈 N4 (Elemental)</option>
+                            <option value="N3">🥇 N3 (Intermedio)</option>
+                            <option value="N2">⭐ N2 (Avanzado)</option>
+                            <option value="N1">👑 N1 (Nativo)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cuando_empezar">📅 ¿Cuándo quieres empezar?</label>
+                        <select id="cuando_empezar" name="cuando_empezar">
+                            <option value="">Selecciona...</option>
+                            <option value="Abril 2025">🌸 Abril 2025 (Primavera)</option>
+                            <option value="Octubre 2025">🍂 Octubre 2025 (Otoño)</option>
+                            <option value="Abril 2026">🌸 Abril 2026 (Primavera)</option>
+                            <option value="Aún no lo tengo claro">🤔 Aún no lo tengo claro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fuente">📢 ¿Cómo nos conociste?</label>
+                    <select id="fuente" name="fuente">
+                        <option value="">Selecciona...</option>
+                        <option value="Instagram">📱 Instagram</option>
+                        <option value="TikTok">🎵 TikTok</option>
+                        <option value="YouTube">📺 YouTube</option>
+                        <option value="Google">🔍 Búsqueda en Google</option>
+                        <option value="Recomendación">👥 Recomendación de amigo</option>
+                        <option value="Instituto Técnico de Madrid">🏫 Instituto Técnico de Madrid</option>
+                        <option value="Feria educativa">🎪 Feria educativa</option>
+                        <option value="LinkedIn">💼 LinkedIn</option>
+                        <option value="Facebook">👥 Facebook</option>
+                        <option value="Otro">📝 Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mensaje">💭 Cuéntanos sobre tus objetivos y motivaciones *</label>
+                    <textarea id="mensaje" name="mensaje" required rows="4" 
+                              placeholder="Ej: Me apasiona la programación y siempre he soñado con trabajar en empresas japonesas como Nintendo o Sony. Me gustaría conocer más sobre las oportunidades laborales después del curso y cómo puedo prepararme mejor para esta experiencia en Japón..."></textarea>
+                    <div class="char-counter">
+                        <span id="charCount">0</span>/500 caracteres
+                    </div>
+                </div>
+                
+                <!-- Campos ocultos para analytics -->
+                <input type="hidden" id="user_agent" name="user_agent">
+                <input type="hidden" id="utm_source" name="utm_source">
+                <input type="hidden" id="utm_campaign" name="utm_campaign">
+                <input type="hidden" id="utm_medium" name="utm_medium">
+                <input type="hidden" id="ip" name="ip">
+                <input type="hidden" id="referrer" name="referrer">
+                
+                <div class="form-legal">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="legal" name="legal" required>
+                        <span class="checkmark"></span>
+                        <span class="legal-text">
+                            Acepto la <a href="#" target="_blank">política de privacidad</a> y autorizo el tratamiento de mis datos para recibir información sobre programas formativos en Japón
+                        </span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <span class="btn-icon">🚀</span>
+                    Enviar Solicitud de Información
+                    <span class="btn-icon">🌸</span>
+                </button>
+                
+                <div class="form-security">
+                    <p>🔒 Tus datos están seguros. No spam, solo información valiosa sobre tu futuro en Japón.</p>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Mensajes de estado -->
+        <div id="loadingMessage" class="status-message loading-message" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Enviando tu solicitud... <span class="jp-text">お待ちください</span></p>
+        </div>
+
+        <div id="successMessage" class="status-message success-message" style="display: none;">
+            <div class="success-icon">🎉</div>
+            <h3>¡Solicitud enviada con éxito!</h3>
+            <p>Gracias por tu interés en estudiar en Japón. Nos pondremos en contacto contigo en las próximas 24-48 horas.</p>
+            <div class="next-steps">
+                <h4>Próximos pasos:</h4>
+                <ul>
+                    <li>📧 Recibirás un email de confirmación</li>
+                    <li>📞 Te contactaremos para una videollamada informativa</li>
+                    <li>📚 Te enviaremos el dossier completo del programa</li>
+                </ul>
             </div>
         </div>
-    </section>
-    <!-- Footer -->
+
+        <div id="errorMessage" class="status-message error-message" style="display: none;">
+            <div class="error-icon">❌</div>
+            <h3>Error al enviar la solicitud</h3>
+            <p>Por favor, inténtalo de nuevo o contáctanos directamente:</p>
+            <p><strong>Email:</strong> <a href="mailto:estudiatufpenjapon@gmail.com">estudiatufpenjapon@gmail.com</a></p>
+            <p><strong>WhatsApp:</strong> <a href="https://wa.me/+34XXXXXXXXX">+34 XXX XXX XXX</a></p>
+        </div>
+    </div>
+</section>
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
