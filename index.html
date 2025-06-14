@@ -33,6 +33,27 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://estudiatufpenjapon.github.io/">
     
+    <!-- Google Analytics + Enhanced Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-15R7ZFWQz7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-15R7ZFWQz7', {
+            'enhanced_measurement': true,
+            'send_page_view': true
+        });
+        
+        // Función para tracking de eventos
+        function trackEvent(action, category, label, value) {
+            gtag('event', action, {
+                'event_category': category,
+                'event_label': label,
+                'value': value
+            });
+        }
+    </script>
+    
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
@@ -65,7 +86,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
     <!-- Header -->
     <header class="header">
